@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2.13 · Foco visible y no tapado · Sesión 2</title>
+  <style>
+    body { font-family: system-ui, sans-serif; color: #1b2228; max-width: 760px; margin: 32px auto; padding: 0 16px; line-height: 1.5; }
+    h1 { font-size: 22px; }
+    .caso { border: 1px solid #58676f; border-radius: 8px; padding: 16px; margin: 16px 0; }
+    .caso h2 { font-size: 16px; margin-top: 0; }
+    button { font: inherit; padding: 8px 14px; border-radius: 6px; border: 1px solid #0622bc; background: #fff; color: #0622bc; cursor: pointer; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+    html { scroll-padding-top: 64px; }   /* 2.4.11: el foco no queda debajo de la cabecera fija */
+    .fija { position: sticky; top: 0; height: 48px; display: flex; align-items: center; padding: 0 12px; background: #212c43; color: #fff; }
+    .sin-foco:focus { outline: none; }
+    .con-foco:focus-visible { outline: 3px solid #0725d0; outline-offset: 2px; }
+    .relleno { height: 120vh; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>2.13 · Foco visible y no tapado</h1>
+    <header class="fija">Cabecera fija (como la Topbar del proyecto)</header>
+    <div class="caso">
+      <h2>❌ outline: none</h2>
+      <button type="button" class="sin-foco">No sabrás si estoy enfocado</button>
+    </div>
+    <div class="caso">
+      <h2>✅ :focus-visible con buen contraste</h2>
+      <button type="button" class="con-foco">Mi foco se ve</button>
+    </div>
+    <div class="relleno">Haz scroll y vuelve con Mayúsculas + Tab: ¿queda algo tapado por la cabecera?</div>
+    <p><a href="#">Enlace al final de la página</a></p>
+  </main>
+
+</body>
+</html>

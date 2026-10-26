@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2.5 · Las cinco reglas de uso de ARIA, en código · Sesión 2</title>
+  <style>
+    body { font-family: system-ui, sans-serif; color: #1b2228; max-width: 760px; margin: 32px auto; padding: 0 16px; line-height: 1.5; }
+    h1 { font-size: 22px; }
+    .caso { border: 1px solid #58676f; border-radius: 8px; padding: 16px; margin: 16px 0; }
+    .caso h2 { font-size: 16px; margin-top: 0; }
+    button { font: inherit; padding: 8px 14px; border-radius: 6px; border: 1px solid #0622bc; background: #fff; color: #0622bc; cursor: pointer; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>2.5 · Las cinco reglas de uso de ARIA, en código</h1>
+    <div class="caso">
+      <h2>Regla 1 · Si hay un elemento nativo, úsalo</h2>
+      <!-- ❌ --> <div role="button" tabindex="0">Enviar</div>
+      <!-- ✅ --> <button type="button">Enviar</button>
+    </div>
+
+    <div class="caso">
+      <h2>Regla 2 · No cambies la semántica nativa</h2>
+      <!-- ❌ el h2 deja de ser un encabezado -->
+      <h2 role="button" tabindex="0">¿Qué puedo denunciar?</h2>
+      <!-- ✅ el encabezado sigue siéndolo y el botón va dentro -->
+      <h2><button type="button" aria-expanded="false">¿Qué puedo denunciar?</button></h2>
+    </div>
+
+    <div class="caso">
+      <h2>Regla 3 · Todo control ARIA funciona con el teclado</h2>
+      <p>Si escribes role="button", tienes que programar Tab, Intro y Espacio.</p>
+    </div>
+
+    <div class="caso">
+      <h2>Regla 4 · Nada enfocable con role="presentation" o aria-hidden="true"</h2>
+      <!-- ❌ --> <button type="button" aria-hidden="true">Cerrar</button>
+    </div>
+
+    <div class="caso">
+      <h2>Regla 5 · Todo elemento interactivo tiene nombre accesible</h2>
+      <!-- ❌ --> <button type="button">✕</button>
+      <!-- ✅ --> <button type="button" aria-label="Cerrar aviso">✕</button>
+    </div>
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reporta una denuncia · Canal de denuncias</title>
+  <!-- Etapa 2 · tras el laboratorio 2 (barrera 7): el aviso de borrador usa una región viva. -->
+  <style>
+    body { margin: 0; font-family: system-ui, sans-serif; color: #1b2228; background: #f8f9fa; }
+    .cabecera { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; gap: 16px; height: 56px; padding: 0 16px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.15); }
+    .logo { font-weight: 700; margin-right: auto; }
+    .icono { width: 40px; height: 40px; border: 0; background: transparent; border-radius: 6px; cursor: pointer; }
+    .icono svg { width: 24px; height: 24px; }
+    .layout { display: flex; align-items: flex-start; }
+    #menu-lateral { width: 220px; padding: 16px; }
+    #menu-lateral ul { list-style: none; padding: 0; margin: 0; }
+    #menu-lateral a { display: block; padding: 8px; color: #1b2228; }
+    main { flex: 1; padding: 24px 40px 80px; max-width: 760px; }
+    .migas ol { list-style: none; display: flex; gap: 8px; padding: 0; margin: 0 0 8px; font-size: 14px; }
+    .migas li + li::before { content: "/ "; }
+    .tarjeta { background: #fff; border: 1px solid #e0e5e9; border-radius: 12px; padding: 24px; }
+    .campo { margin-bottom: 16px; }
+    input[type=text], input[type=email], input[type=tel] { width: 100%; box-sizing: border-box; height: 40px; padding: 0 12px; border: 1px solid #58676f; border-radius: 6px; font-size: 15px; }
+    button { font: inherit; }
+    .principal { background: #0725d0; color: #fff; border: 0; border-radius: 6px; padding: 10px 16px; cursor: pointer; }
+    .secundario { background: #fff; color: #0622bc; border: 1px solid #0622bc; border-radius: 6px; padding: 10px 16px; cursor: pointer; }
+    .enlace { color: #0622bc; text-decoration: underline; cursor: pointer; align-self: center; }
+    .aviso { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #1d7240; color: #fff; padding: 12px 20px; border-radius: 8px; }
+    .aviso:empty { display: none; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    .obligatorio { border-color: #d00; }
+    .rojo { color: #d00; }
+    .con-error { border: 2px solid #d00; }
+    .error { color: #d00; font-size: 13px; }
+    .radios { margin: 12px 0; }
+    .switch { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; margin-bottom: 16px; }
+    .switch .pista { width: 36px; height: 20px; border-radius: 10px; background: #58676f; position: relative; }
+    .switch.activo .pista { background: #0725d0; }
+    .acciones { display: flex; flex-direction: row-reverse; justify-content: flex-start; gap: 12px; margin-top: 24px; }
+    /* Que no se vea el recuadro del foco "porque es feo" */
+    *:focus { outline: none; }
+  </style>
+</head>
+<body>
+  <header class="cabecera">
+    <!-- Laboratorio 2 · Nombre (aria-label) y estado (aria-expanded) -->
+    <button class="icono" type="button" id="btn-menu" aria-label="Menú" aria-expanded="true" aria-controls="menu-lateral" onclick="alternarMenu()"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2"/></svg></button>
+    <span class="logo">Logoipsum</span>
+    <button class="icono" type="button" aria-label="Notificaciones"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 17V11a6 6 0 0 1 12 0v6l2 2H4zM10 21h4" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
+  </header>
+
+  <div class="layout">
+    <nav id="menu-lateral" aria-label="Menú principal">
+      <ul>
+        <li><a href="#" aria-current="page">Canal de denuncias</a></li>
+        <li><a href="#">Mis fichajes</a></li>
+        <li><a href="#">Mis ausencias</a></li>
+      </ul>
+    </nav>
+
+    <main id="contenido">
+      <nav class="migas" aria-label="Ruta de navegación">
+        <ol>
+          <li><a href="#">Canal de denuncias</a></li>
+          <li aria-current="page">Reporta una denuncia</li>
+        </ol>
+      </nav>
+      <h1>Reporta una denuncia</h1>
+      <p>Paso 1 de 3</p>
+
+      <section class="tarjeta" aria-labelledby="titulo-paso">
+        <h2 id="titulo-paso">Identifícate</h2>
+        <p>Introduce tus datos personales. También puedes denunciar de forma anónima.</p>
+        <div class="switch" id="anonimo" onclick="alternarAnonimo()"><span class="pista"></span> Quiero denunciar de forma anónima</div>
+        <p>Los campos en <span class="rojo">rojo</span> son obligatorios.</p>
+
+        <form id="form-identificacion" novalidate>
+        <div class="campo"><input type="text" id="nombre" placeholder="Nombre" class="obligatorio"></div>
+        <div class="campo"><input type="text" id="apellidos" placeholder="Apellidos" class="obligatorio"></div>
+        <div class="campo"><input type="email" id="email" placeholder="Email" class="obligatorio" tabindex="1"></div>
+        <div class="campo">
+          <input type="text" id="telefono" placeholder="Teléfono" class="obligatorio">
+          <small>9 dígitos, sin espacios</small>
+        </div>
+        <div class="radios" id="tipo">
+          <span>Tipo de documento</span><br>
+          <input type="radio" name="tipo" value="dni"> DNI
+          <input type="radio" name="tipo" value="nie"> NIE
+          <input type="radio" name="tipo" value="pasaporte"> Pasaporte
+        </div>
+        <div class="campo"><input type="text" id="documento" placeholder="Número de documento" class="obligatorio"></div>
+
+        <div class="acciones">
+          <button type="submit" class="principal" tabindex="3">Siguiente <span aria-hidden="true">➜</span></button>
+          <button type="button" class="secundario" onclick="guardarBorrador()">Guardar borrador</button>
+          <span class="enlace" onclick="cancelar()">Cancelar</span>
+        </div>
+        </form>
+      </section>
+    </main>
+  </div>
+  <!-- Laboratorio 2 · La región viva existe desde que carga la página, vacía (WCAG 4.1.3) -->
+  <div id="avisos" class="aviso" role="status"></div>
+
+  <script>
+    function alternarMenu() {
+      const menu = document.getElementById('menu-lateral');
+      const boton = document.getElementById('btn-menu');
+      menu.hidden = !menu.hidden;
+      // Laboratorio 2 · Si pones un estado ARIA, lo actualizas tú con JavaScript
+      boton.setAttribute('aria-expanded', String(!menu.hidden));
+    }
+    function avisar(texto) {
+      // Laboratorio 2 · Solo cambiamos el texto de una región que ya existe
+      const avisos = document.getElementById('avisos');
+      avisos.textContent = texto;
+      setTimeout(() => { avisos.textContent = ''; }, 6000);
+    }
+    let anonimo = false;
+    function alternarAnonimo() {
+      anonimo = !anonimo;
+      document.getElementById('anonimo').classList.toggle('activo', anonimo);
+      document.querySelectorAll('#form-identificacion input').forEach((campo) => { campo.disabled = anonimo; });
+    }
+    function validar(evento) {
+      evento.preventDefault();
+      document.querySelectorAll('.error').forEach((e) => e.remove());
+      let hayErrores = false;
+      ['nombre', 'apellidos', 'email', 'telefono', 'documento'].forEach((id) => {
+        const campo = document.getElementById(id);
+        campo.classList.remove('con-error');
+        if (!anonimo && !esValido(id, campo.value.trim())) {
+          hayErrores = true;
+          campo.classList.add('con-error');
+          campo.insertAdjacentHTML('afterend', '<span class="error">Campo incorrecto</span>');
+        }
+      });
+      if (!anonimo && !document.querySelector('input[name=tipo]:checked')) {
+        hayErrores = true;
+        document.getElementById('tipo').insertAdjacentHTML('beforeend', '<span class="error">Campo incorrecto</span>');
+      }
+      if (!hayErrores) avisar('Paso 1 completado. En la aplicación real pasaríamos al paso 2.');
+    }
+    function esValido(id, valor) {
+      if (id === 'email') return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(valor);
+      if (id === 'telefono') return /^[0-9]{9}$/.test(valor);
+      return valor !== '';
+    }
+
+    function guardarBorrador() {
+      const hora = new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+      avisar('Borrador guardado a las ' + hora + '.');
+    }
+
+    function cancelar() {
+      if (confirm('¿Seguro que quieres salir? Se perderán los datos no guardados.')) {
+        document.getElementById('form-identificacion').reset();
+      }
+    }
+
+    document.getElementById('form-identificacion').addEventListener('submit', validar);
+  </script>
+</body>
+</html>

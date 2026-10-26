@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canal de denuncias</title>
+  <!-- Solución del laboratorio 1 · Misma apariencia, otra página para el lector de pantalla. -->
+  <style>
+    body { margin: 0; font-family: system-ui, sans-serif; color: #1b2228; background: #f8f9fa; line-height: 1.5; }
+    .cabecera { display: flex; align-items: center; justify-content: space-between; height: 56px; padding: 0 16px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.15); }
+    .logo { font-weight: 700; }
+    .layout { display: flex; align-items: flex-start; }
+    .menu { width: 220px; padding: 16px; }
+    .menu a { display: block; padding: 8px; color: #1b2228; }
+    .grupo { font-size: 13px; font-weight: 700; color: #46545b; text-transform: uppercase; margin: 8px 0 4px; }
+    .contenido { flex: 1; padding: 24px 40px 48px; max-width: 820px; }
+    .titulo { font-size: 30px; font-weight: 700; margin: 0 0 16px; }
+    .subtitulo { font-size: 22px; font-weight: 700; margin: 0 0 12px; }
+    .subsub { font-size: 17px; font-weight: 700; margin: 16px 0 4px; }
+    .boton { display: inline-block; background: #0725d0; color: #fff; padding: 10px 16px; border-radius: 6px; cursor: pointer; text-decoration: none; }
+    .bloque { background: #fff; border: 1px solid #e0e5e9; border-radius: 12px; padding: 24px; margin-top: 24px; }
+    .resumen { display: flex; gap: 16px; list-style: none; padding: 0; margin: 0 0 8px; }
+    .resumen > * { flex: 1; background: #f3f5f6; border-radius: 8px; padding: 12px; }
+    .tabla { display: table; width: 100%; border-collapse: collapse; }
+    .fila { display: table-row; }
+    .celda { display: table-cell; border-bottom: 1px solid #e0e5e9; padding: 8px 10px; }
+    .cab .celda { font-weight: 700; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border-bottom: 1px solid #e0e5e9; padding: 8px 10px; text-align: left; }
+    .estado { border-radius: 12px; padding: 2px 10px; font-size: 14px; }
+    .revision { background: #fce3cf; color: #a74f0b; }
+    .resuelta { background: #d2f9e2; color: #1d7240; }
+    .enviada { background: #d2edfe; color: #05639e; }
+    .pie { padding: 16px 40px; font-size: 14px; color: #46545b; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+  </style>
+</head>
+<body>
+  <header class="cabecera">
+    <p class="logo">Logoipsum</p>
+    <p class="usuario">Usuario del canal</p>
+  </header>
+
+  <div class="layout">
+    <nav class="menu" aria-label="Menú principal">
+      <p class="grupo" id="grupo-empresa">Empresa</p>
+      <ul aria-labelledby="grupo-empresa">
+        <li><a href="#" aria-current="page">Canal de denuncias</a></li>
+        <li><a href="#">Comunicados</a></li>
+      </ul>
+      <p class="grupo" id="grupo-personal">Personal</p>
+      <ul aria-labelledby="grupo-personal">
+        <li><a href="#">Mis fichajes</a></li>
+        <li><a href="#">Mis ausencias</a></li>
+      </ul>
+    </nav>
+
+    <main class="contenido">
+      <h1 class="titulo">Canal de denuncias</h1>
+      <!-- Te lleva a otra página: es un enlace -->
+      <a class="boton" href="denuncia.html">Reporta una denuncia</a>
+
+      <section class="bloque" aria-labelledby="titulo-sobre">
+        <h2 class="subtitulo" id="titulo-sobre">Sobre el canal de denuncias</h2>
+        <h3 class="subsub">¿Quién puede denunciar?</h3>
+        <p>Cualquier persona que trabaje o haya trabajado en la empresa, y también proveedores y clientes.</p>
+        <h3 class="subsub">¿Qué puedo denunciar?</h3>
+        <p>Acoso laboral, robo o hurto, conducta indebida y agresión.</p>
+      </section>
+
+      <section class="bloque" aria-labelledby="titulo-mis">
+        <h2 class="subtitulo" id="titulo-mis">Mis denuncias</h2>
+        <ul class="resumen" role="list">  <!-- list-style: none hace que Safari deje de anunciarla como lista -->
+          <li>Denuncias reportadas en total: <b>3</b></li>
+          <li>Denuncias resueltas: <b>1</b></li>
+          <li>Denuncias pendientes: <b>2</b></li>
+        </ul>
+        <h3 class="subsub" id="titulo-historial">Historial de denuncias</h3>
+        <table aria-labelledby="titulo-historial">
+          <thead>
+            <tr><th scope="col">Código de denuncia</th><th scope="col">Fecha de reporte</th><th scope="col">Fecha de resolución</th><th scope="col">Estado</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">D-0042</th><td>12/10/2026</td><td>Sin resolver</td><td><span class="estado revision">En revisión</span></td></tr>
+            <tr><th scope="row">D-0037</th><td>28/09/2026</td><td>03/10/2026</td><td><span class="estado resuelta">Resuelta</span></td></tr>
+            <tr><th scope="row">D-0031</th><td>15/09/2026</td><td>Sin resolver</td><td><span class="estado enviada">Enviada</span></td></tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+
+  <footer class="pie">© 2026 Empresa · <a href="#">Política de privacidad</a></footer>
+</body>
+</html>

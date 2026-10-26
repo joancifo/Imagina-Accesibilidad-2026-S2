@@ -1,0 +1,64 @@
+diff --git a/src/features/denuncias/CanalDenunciasPage.tsx b/src/features/denuncias/CanalDenunciasPage.tsx
+index 8b907d5..971bc6a 100755
+--- a/src/features/denuncias/CanalDenunciasPage.tsx
++++ b/src/features/denuncias/CanalDenunciasPage.tsx
+@@ -39,7 +39,11 @@ export function CanalDenunciasPage() {
+       currentSidebarItem={es.sidebar.items.reportChannel}
+       initialSidebarExpanded={previewState !== 'sidebar-collapsed'}
+     >
+-      <main className="flex min-w-px flex-1 flex-col items-center px-10.5 pt-8">
++      <main
++        id="contenido-principal"
++        tabIndex={-1}
++        className="flex min-w-px flex-1 flex-col items-center px-10.5 pt-8 focus:outline-none"
++      >
+         <PageHeader
+           className="w-full"
+           title={texts.title}
+diff --git a/src/features/denuncias/reportar/ReportarDenunciaPage.tsx b/src/features/denuncias/reportar/ReportarDenunciaPage.tsx
+index 8e8cf82..83debb3 100755
+--- a/src/features/denuncias/reportar/ReportarDenunciaPage.tsx
++++ b/src/features/denuncias/reportar/ReportarDenunciaPage.tsx
+@@ -106,7 +106,11 @@ export function ReportarDenunciaPage() {
+ 
+   return (
+     <PrivateLayout showSidebar={false}>
+-      <main className="flex min-w-px flex-1 flex-col items-center px-10.5 pt-8">
++      <main
++        id="contenido-principal"
++        tabIndex={-1}
++        className="flex min-w-px flex-1 flex-col items-center px-10.5 pt-8 focus:outline-none"
++      >
+         <PageHeader
+           className="w-full"
+           title={texts.title}
+diff --git a/src/i18n/es.ts b/src/i18n/es.ts
+index 34eb57d..5cf4e46 100755
+--- a/src/i18n/es.ts
++++ b/src/i18n/es.ts
+@@ -3,6 +3,7 @@ export const es = {
+     userInitials: 'NA',
+     userName: 'Usuario del canal de denuncias',
+     clockIn: 'Fichar entrada',
++    skipToContent: 'Saltar al contenido principal',
+   },
+   sidebar: {
+     groups: {
+diff --git a/src/layouts/PrivateLayout.tsx b/src/layouts/PrivateLayout.tsx
+index 0e9ac5a..7d72a76 100755
+--- a/src/layouts/PrivateLayout.tsx
++++ b/src/layouts/PrivateLayout.tsx
+@@ -27,6 +27,13 @@ export function PrivateLayout({
+ 
+   return (
+     <div className="flex min-h-screen flex-col bg-level-1">
++      {/* Sesión 2 · Enlace para saltar al contenido (WCAG 2.4.1). Oculto hasta que recibe el foco. */}
++      <a
++        href="#contenido-principal"
++        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-2 focus:z-50 focus:rounded-component-md focus:bg-interactive-primary focus:px-4 focus:py-2 focus:font-body focus:text-paragraph-sm focus:font-semibold focus:text-inverse"
++      >
++        {es.app.skipToContent}
++      </a>
+       <div className="sticky top-0 z-10">
+         <Topbar
+           isSidebarExpanded={showSidebar && isSidebarExpanded}

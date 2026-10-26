@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2.6 · Un botón que recuerda su estado · Sesión 2</title>
+  <style>
+    body { font-family: system-ui, sans-serif; color: #1b2228; max-width: 760px; margin: 32px auto; padding: 0 16px; line-height: 1.5; }
+    h1 { font-size: 22px; }
+    .caso { border: 1px solid #58676f; border-radius: 8px; padding: 16px; margin: 16px 0; }
+    .caso h2 { font-size: 16px; margin-top: 0; }
+    button { font: inherit; padding: 8px 14px; border-radius: 6px; border: 1px solid #0622bc; background: #fff; color: #0622bc; cursor: pointer; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+    /* El estilo se apoya en el estado ARIA: una sola fuente de verdad */
+    [aria-pressed="true"] { background: #0725d0; color: #fff; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>2.6 · Un botón que recuerda su estado</h1>
+    <p>Pulsa el botón con el ratón o con <kbd>Tab</kbd> + <kbd>Espacio</kbd> y mira el panel Accessibility de Chrome: «Pressed: false / true».</p>
+
+    <!-- DIAPOSITIVA: estado aria-pressed que actualiza JavaScript -->
+    <button type="button" id="urgente" aria-pressed="false">Marcar como urgente</button>
+  </main>
+
+  <script>
+    const boton = document.getElementById('urgente');
+    boton.addEventListener('click', () => {
+      const pulsado = boton.getAttribute('aria-pressed') === 'true';
+      boton.setAttribute('aria-pressed', String(!pulsado));   // el estado lo cambias tú
+    });
+  </script>
+</body>
+</html>

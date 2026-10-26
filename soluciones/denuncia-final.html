@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reporta una denuncia · Canal de denuncias</title>
+  <!-- Etapa 4 · tras el laboratorio 4 (versión final): teclado, orden y foco visible, enlace para saltar al contenido. -->
+  <style>
+    body { margin: 0; font-family: system-ui, sans-serif; color: #1b2228; background: #f8f9fa; }
+    .cabecera { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; gap: 16px; height: 56px; padding: 0 16px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.15); }
+    .logo { font-weight: 700; margin-right: auto; }
+    .icono { width: 40px; height: 40px; border: 0; background: transparent; border-radius: 6px; cursor: pointer; }
+    .icono svg { width: 24px; height: 24px; }
+    .layout { display: flex; align-items: flex-start; }
+    #menu-lateral { width: 220px; padding: 16px; }
+    #menu-lateral ul { list-style: none; padding: 0; margin: 0; }
+    #menu-lateral a { display: block; padding: 8px; color: #1b2228; }
+    main { flex: 1; padding: 24px 40px 80px; max-width: 760px; }
+    .migas ol { list-style: none; display: flex; gap: 8px; padding: 0; margin: 0 0 8px; font-size: 14px; }
+    .migas li + li::before { content: "/ "; }
+    .tarjeta { background: #fff; border: 1px solid #e0e5e9; border-radius: 12px; padding: 24px; }
+    .campo { margin-bottom: 16px; }
+    input[type=text], input[type=email], input[type=tel] { width: 100%; box-sizing: border-box; height: 40px; padding: 0 12px; border: 1px solid #58676f; border-radius: 6px; font-size: 15px; }
+    button { font: inherit; }
+    .principal { background: #0725d0; color: #fff; border: 0; border-radius: 6px; padding: 10px 16px; cursor: pointer; }
+    .secundario { background: #fff; color: #0622bc; border: 1px solid #0622bc; border-radius: 6px; padding: 10px 16px; cursor: pointer; }
+    .enlace { color: #0622bc; text-decoration: underline; cursor: pointer; align-self: center; }
+    .aviso { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #1d7240; color: #fff; padding: 12px 20px; border-radius: 8px; }
+    .aviso:empty { display: none; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    label, legend { display: block; font-weight: 600; margin-bottom: 4px; }
+    .ayuda { color: #46545b; font-size: 13px; margin: 0 0 4px; }
+    input[aria-invalid="true"] { border: 2px solid #b00020; }
+    .error { color: #b00020; font-size: 13px; margin: 4px 0 0; }
+    .error::before { content: "⚠ "; }
+    fieldset { border: 1px solid #58676f; border-radius: 6px; padding: 12px 16px; margin: 0 0 16px; }
+    fieldset label { display: inline; font-weight: 400; margin-right: 16px; }
+    .switch { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; font-weight: 600; }
+    .switch input { width: 20px; height: 20px; }
+    /* Laboratorio 4 · El orden visual coincide con el orden del código (WCAG 2.4.3 y 1.3.2) */
+    .acciones { display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px; }
+    /* Laboratorio 4 · Foco visible (WCAG 2.4.7) y no tapado por la cabecera fija (2.4.11) */
+    :focus-visible { outline: 3px solid #0725d0; outline-offset: 2px; }
+    html { scroll-padding-top: 72px; }
+    /* Laboratorio 4 · Enlace para saltar al contenido: oculto hasta que recibe el foco */
+    .saltar { position: absolute; left: 16px; top: -100px; z-index: 100; background: #0725d0; color: #fff; padding: 8px 16px; border-radius: 6px; }
+    .saltar:focus { top: 8px; }
+  </style>
+</head>
+<body>
+  <!-- Laboratorio 4 · Enlace para saltar al contenido (WCAG 2.4.1) -->
+  <a class="saltar" href="#contenido">Saltar al contenido principal</a>
+  <header class="cabecera">
+    <!-- Laboratorio 2 · Nombre (aria-label) y estado (aria-expanded) -->
+    <button class="icono" type="button" id="btn-menu" aria-label="Menú" aria-expanded="true" aria-controls="menu-lateral" onclick="alternarMenu()"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2"/></svg></button>
+    <span class="logo">Logoipsum</span>
+    <button class="icono" type="button" aria-label="Notificaciones"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 17V11a6 6 0 0 1 12 0v6l2 2H4zM10 21h4" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
+  </header>
+
+  <div class="layout">
+    <nav id="menu-lateral" aria-label="Menú principal">
+      <ul>
+        <li><a href="#" aria-current="page">Canal de denuncias</a></li>
+        <li><a href="#">Mis fichajes</a></li>
+        <li><a href="#">Mis ausencias</a></li>
+      </ul>
+    </nav>
+
+    <main id="contenido" tabindex="-1">
+      <nav class="migas" aria-label="Ruta de navegación">
+        <ol>
+          <li><a href="#">Canal de denuncias</a></li>
+          <li aria-current="page">Reporta una denuncia</li>
+        </ol>
+      </nav>
+      <h1>Reporta una denuncia</h1>
+      <p>Paso 1 de 3</p>
+
+      <section class="tarjeta" aria-labelledby="titulo-paso">
+        <h2 id="titulo-paso">Identifícate</h2>
+        <p>Introduce tus datos personales. También puedes denunciar de forma anónima.</p>
+        <!-- Laboratorio 3 · Un control nativo en lugar de un div con onclick -->
+        <label class="switch"><input type="checkbox" role="switch" id="anonimo" onchange="alternarAnonimo()"> Quiero denunciar de forma anónima</label>
+        <p>Los campos marcados con asterisco (*) son obligatorios.</p>
+
+        <form id="form-identificacion" novalidate>
+        <!-- Laboratorio 3 · Cada campo: etiqueta visible + ayuda asociada + autocomplete -->
+        <div class="campo">
+          <label for="nombre">Nombre <span aria-hidden="true">*</span></label>
+          <input type="text" id="nombre" name="nombre" autocomplete="given-name" required>
+        </div>
+        <div class="campo">
+          <label for="apellidos">Apellidos <span aria-hidden="true">*</span></label>
+          <input type="text" id="apellidos" name="apellidos" autocomplete="family-name" required>
+        </div>
+        <div class="campo">
+          <label for="email">Email <span aria-hidden="true">*</span></label>
+          <p class="ayuda" id="ayuda-email">Ejemplo: maria@empresa.com</p>
+          <input type="email" id="email" name="email" autocomplete="email" required aria-describedby="ayuda-email">
+        </div>
+        <div class="campo">
+          <label for="telefono">Teléfono <span aria-hidden="true">*</span></label>
+          <p class="ayuda" id="ayuda-telefono">9 dígitos, sin espacios. Ejemplo: 600000000</p>
+          <input type="tel" id="telefono" name="telefono" autocomplete="tel" inputmode="numeric" required aria-describedby="ayuda-telefono">
+        </div>
+        <fieldset id="tipo">
+          <legend>Tipo de documento <span aria-hidden="true">*</span></legend>
+          <input type="radio" name="tipo" id="tipo-dni" value="dni" required> <label for="tipo-dni">DNI</label>
+          <input type="radio" name="tipo" id="tipo-nie" value="nie"> <label for="tipo-nie">NIE</label>
+          <input type="radio" name="tipo" id="tipo-pasaporte" value="pasaporte"> <label for="tipo-pasaporte">Pasaporte</label>
+        </fieldset>
+        <div class="campo">
+          <label for="documento">Número de documento <span aria-hidden="true">*</span></label>
+          <p class="ayuda" id="ayuda-documento">DNI y NIE: 8 números o letras y una letra final. Ejemplo: 12345678Z</p>
+          <input type="text" id="documento" name="documento" required aria-describedby="ayuda-documento">
+        </div>
+
+        <!-- Laboratorio 4 · Sin tabindex positivos, «Cancelar» es un botón y el orden del código es el visual -->
+        <div class="acciones">
+          <button type="button" class="secundario" onclick="cancelar()">Cancelar</button>
+          <button type="button" class="secundario" onclick="guardarBorrador()">Guardar borrador</button>
+          <button type="submit" class="principal">Siguiente <span aria-hidden="true">➜</span></button>
+        </div>
+        </form>
+      </section>
+    </main>
+  </div>
+  <!-- Laboratorio 2 · La región viva existe desde que carga la página, vacía (WCAG 4.1.3) -->
+  <div id="avisos" class="aviso" role="status"></div>
+
+  <script>
+    function alternarMenu() {
+      const menu = document.getElementById('menu-lateral');
+      const boton = document.getElementById('btn-menu');
+      menu.hidden = !menu.hidden;
+      // Laboratorio 2 · Si pones un estado ARIA, lo actualizas tú con JavaScript
+      boton.setAttribute('aria-expanded', String(!menu.hidden));
+    }
+    function avisar(texto) {
+      // Laboratorio 2 · Solo cambiamos el texto de una región que ya existe
+      const avisos = document.getElementById('avisos');
+      avisos.textContent = texto;
+      setTimeout(() => { avisos.textContent = ''; }, 6000);
+    }
+    function alternarAnonimo() {
+      const anonimo = document.getElementById('anonimo').checked;
+      document.querySelectorAll('#form-identificacion input:not(#anonimo)').forEach((campo) => {
+        campo.disabled = anonimo;
+        if (anonimo) limpiarError(campo.type === 'radio' ? document.getElementById('tipo') : campo);
+      });
+    }
+    const MENSAJES = {
+      nombre: 'Debes rellenar este campo.',
+      apellidos: 'Debes rellenar este campo.',
+      email: 'Introduce un email válido. Ejemplo: maria@empresa.com',
+      telefono: 'Introduce un teléfono de 9 dígitos, sin espacios.',
+      documento: 'Introduce un número de documento. Ejemplo: 12345678Z',
+      tipo: 'Elige un tipo de documento.',
+    };
+
+    // Laboratorio 3 · Marca el campo como no válido y asocia el mensaje con aria-describedby
+    function mostrarError(campo, id) {
+      const error = document.createElement('p');
+      error.className = 'error';
+      error.id = 'error-' + id;
+      error.textContent = MENSAJES[id];
+      const ayuda = document.getElementById('ayuda-' + id);
+      if (campo.tagName === 'FIELDSET') {
+        campo.append(error);
+        campo.querySelectorAll('input').forEach((radio) => {
+          radio.setAttribute('aria-invalid', 'true');
+          radio.setAttribute('aria-describedby', error.id);
+        });
+      } else {
+        campo.after(error);
+        campo.setAttribute('aria-invalid', 'true');
+        // La ayuda y el error se leen juntos: «ayuda-telefono error-telefono»
+        campo.setAttribute('aria-describedby', ayuda ? ayuda.id + ' ' + error.id : error.id);
+      }
+    }
+
+    function limpiarError(campo) {
+      document.getElementById('error-' + campo.id)?.remove();
+      const ayuda = document.getElementById('ayuda-' + campo.id);
+      const controles = campo.tagName === 'FIELDSET' ? campo.querySelectorAll('input') : [campo];
+      controles.forEach((control) => {
+        control.removeAttribute('aria-invalid');
+        if (ayuda) control.setAttribute('aria-describedby', ayuda.id);
+        else control.removeAttribute('aria-describedby');
+      });
+    }
+
+    function validar(evento) {
+      evento.preventDefault();
+      const anonimo = document.getElementById('anonimo').checked;
+      let primerError = null;
+      ['nombre', 'apellidos', 'email', 'telefono', 'tipo', 'documento'].forEach((id) => {
+        const campo = document.getElementById(id);
+        limpiarError(campo);
+        const valor = id === 'tipo'
+          ? (document.querySelector('input[name=tipo]:checked')?.value ?? '')
+          : campo.value.trim();
+        if (!anonimo && !esValido(id, valor)) {
+          mostrarError(campo, id);
+          primerError ??= (id === 'tipo' ? campo.querySelector('input') : campo);
+        }
+      });
+      // Laboratorio 3 · Llevamos el foco al primer campo con error: el lector lee etiqueta, «no válido» y el mensaje
+      if (primerError) {
+        primerError.focus();
+      } else {
+        avisar('Paso 1 completado. En la aplicación real pasaríamos al paso 2.');
+      }
+    }
+    function esValido(id, valor) {
+      if (id === 'email') return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(valor);
+      if (id === 'telefono') return /^[0-9]{9}$/.test(valor);
+      return valor !== '';
+    }
+
+    function guardarBorrador() {
+      const hora = new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+      avisar('Borrador guardado a las ' + hora + '.');
+    }
+
+    function cancelar() {
+      if (confirm('¿Seguro que quieres salir? Se perderán los datos no guardados.')) {
+        document.getElementById('form-identificacion').reset();
+      }
+    }
+
+    document.getElementById('form-identificacion').addEventListener('submit', validar);
+  </script>
+</body>
+</html>
